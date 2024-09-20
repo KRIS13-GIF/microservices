@@ -11,6 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>microservices</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>microservices</name>
     <description>microservices</description>
     <url/>
@@ -20,6 +21,10 @@
     <developers>
         <developer/>
     </developers>
+    <modules>
+        <module>fraud</module>
+        <module>customer</module>
+    </modules>
     <scm>
         <connection/>
         <developerConnection/>
@@ -45,6 +50,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>

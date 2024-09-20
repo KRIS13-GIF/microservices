@@ -1,4 +1,4 @@
-package com.example.microservices.customer;
+package com.example.customer;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

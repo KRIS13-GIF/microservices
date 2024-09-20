@@ -1,4 +1,4 @@
-package com.example.microservices.customer;
+package com.example.customer;
 
 
 import lombok.Data;
