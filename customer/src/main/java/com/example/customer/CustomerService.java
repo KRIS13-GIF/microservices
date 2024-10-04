@@ -3,10 +3,9 @@ package com.example.customer;
 import com.example.clients.fraud.FraudCheckResponse;
 import com.example.clients.fraud.FraudClient;
 import com.example.clients.notifications.NotificationClient;
-import com.example.clients.notifications.NotificationResponse;
+import com.example.clients.notifications.NotificationRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,12 +33,22 @@ public class CustomerService {
         if (fraudCheckResponse.isFraud()) {
             throw new IllegalStateException("Fraudster");
         } else {
-            //send a notification based on a logic. If customer is not a FraudSter send the notification
+            /*//send a notification based on a logic. If customer is not a FraudSter send the notification
             NotificationResponse notificationResponse = notificationClient.notificationResponse(customer.getId());
             if (notificationResponse == null) {
-                throw new IllegalStateException("The notification is not created");
+                throw new IllegalStateException("The notification is not created");*/
+            notificationClient.sendNotification(
+
+                    new NotificationRequest(
+                            customer.getId(),
+                            customer.getEmail(),
+                            customer.getFirstName()
+                    )
+            );
+
+
+
+
             }
         }
     }
-
-}

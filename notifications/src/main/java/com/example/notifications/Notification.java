@@ -25,7 +25,9 @@ public class Notification {
             generator = "notification_id_sequence"
     )
     public Integer id;
-    private Integer CustomerId;
+    private Integer toCustomerId;
+    private String toCustomerEmail;
+    private String sender;
     private String message;
     private LocalDate createdAt;
 
