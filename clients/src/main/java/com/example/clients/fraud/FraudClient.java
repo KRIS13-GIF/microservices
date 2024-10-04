@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-//match the controller fraud
+//match the controller fraud. Has accesses to the api in the FRAUD Controller
 @FeignClient("fraud")
 public interface FraudClient {
 
