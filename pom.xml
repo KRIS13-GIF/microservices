@@ -25,6 +25,7 @@
         <module>eureka-server</module>
         <module>notifications</module>
         <module>apigateway</module>
+        <module>advancedMessageQueue</module>
     </modules>
 
     <properties>

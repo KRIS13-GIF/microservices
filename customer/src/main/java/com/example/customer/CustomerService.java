@@ -1,5 +1,6 @@
 package com.example.customer;
 
+import com.example.amqp.RabbitMQMessageProducer;
 import com.example.clients.fraud.FraudCheckResponse;
 import com.example.clients.fraud.FraudClient;
 import com.example.clients.notifications.NotificationClient;
@@ -16,6 +17,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final FraudClient fraudClient;
     private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
     public void registerCustomer(CustomerRequest customerRequest) {
         Customer customer = Customer.builder()
@@ -37,14 +39,25 @@ public class CustomerService {
             NotificationResponse notificationResponse = notificationClient.notificationResponse(customer.getId());
             if (notificationResponse == null) {
                 throw new IllegalStateException("The notification is not created");*/
-            notificationClient.sendNotification(
 
-                    new NotificationRequest(
-                            customer.getId(),
-                            customer.getEmail(),
-                            customer.getFirstName()
-                    )
+            NotificationRequest notificationRequest=new NotificationRequest(
+                    customer.getId(),
+                    customer.getEmail(),
+                    customer.getFirstName());
+
+            /*notificationClient.sendNotification(
+                notificationRequest
+
+            );*/
+
+
+            //Using RabbitMQ to put the request inside of the QUEUE-> No more need for notificationClient
+            rabbitMQMessageProducer.publish(  // the same as sending notifications
+                    notificationRequest,
+                    "internal-exchange",
+                    "internal.notification.routing-key"
             );
+            log.info("Sent");
 
 
 

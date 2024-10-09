@@ -1,0 +1,13 @@
+The customer is the producer
+In the customerService the customer publishes the notification trhanks to the service and sends it to the queue
+
+The configurtaion and the declaration of the published service is done in the RabbitMqConfig, where the customer
+can use the configurations and can communicate with the queue thanks to the amqTemplate
+
+The NotificationConsumer class is the next step which takes the notification published from the Customer and Listens it.
+It takes the notification from the queue and then it can perform its action
+
+
+Customer (producer) -> JSON ->Exchange->Queue->Binding->Notification (consumes the message from the queue)
+
+The queue must be always populated with values in order to execute the send notification
