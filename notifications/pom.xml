@@ -64,6 +64,19 @@
             <scope>compile</scope>
         </dependency>
 
+        <!--This is for the Rabbit MQ  (we can include the dependencies done in the config
+        file whenever you need them, importing from advancedMessageQueue-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>advancedMessageQueue</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
 
 
 
