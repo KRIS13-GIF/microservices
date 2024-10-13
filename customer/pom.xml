@@ -8,9 +8,16 @@
         <artifactId>microservices</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
+<packaging>jar</packaging>
     <artifactId>customer</artifactId>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -76,10 +83,10 @@
 
 
         <!--This is for the Rabbit MQ-->
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>com.example</groupId>
@@ -89,10 +96,6 @@
 
 
     </dependencies>
-
-
-
-
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>

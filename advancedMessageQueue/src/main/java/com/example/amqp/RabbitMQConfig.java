@@ -13,12 +13,7 @@ import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilde
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@AllArgsConstructor
-public class RabbitMQConfig {
 
-
-    private final ConnectionFactory conncectionFactory;
 
 /**Here is the shown the message which is being processed inside the queue.
 When calling the POST endpoint, the queue receives the message and enqueues it inside the queue.
@@ -26,52 +21,29 @@ All the steps are done when the @Bean declaration is executed and the system is 
 
  **/
 
-    @Bean
-    public TopicExchange internalExchange() {
-        return new TopicExchange("internal-exchange");
+
+
+@Configuration
+@AllArgsConstructor
+public class RabbitMQConfig {
+    private final ConnectionFactory connectionFactory;
+    @Bean(name = "customAmqpTemplate")
+    public AmqpTemplate amqpTemplate() {
+        RabbitTemplate rabbitTemplate2 = new RabbitTemplate(connectionFactory);
+        rabbitTemplate2.setMessageConverter(jacksonConverter());
+        return rabbitTemplate2;
     }
-
-    // Queue Declaration
     @Bean
-    public Queue notificationQueue() {
-        return new Queue("notification.queue");
-    }
-
-    // Binding between Exchange and Queue with the routing key
-    @Bean
-    public Binding binding(Queue notificationQueue, TopicExchange internalExchange) {
-        return BindingBuilder
-                .bind(notificationQueue)
-                .to(internalExchange)
-                .with("internal.notification.routing-key");
-    }
-
-
-    @Bean
-    //publich a message to a Queue -> Sends the messages to the queue as JSON
-    public AmqpTemplate amqpTemplate(){
-        RabbitTemplate rabbitTemplate=new RabbitTemplate(conncectionFactory);
-
-        rabbitTemplate.setMessageConverter(jacksonConverter());
-        return rabbitTemplate;
-    }
-
-
-
-    //Receive the messages from the Queue
-    @Bean
-    public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory(){
-        SimpleRabbitListenerContainerFactory factory=new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(conncectionFactory);
+    public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory() {
+        SimpleRabbitListenerContainerFactory factory =
+                new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(jacksonConverter());
         return factory;
     }
-
-
-    //converts to JSON
     @Bean
-    public MessageConverter jacksonConverter(){
-        MessageConverter jackson2JsonMessageConverter=
+    public MessageConverter jacksonConverter() {
+        MessageConverter jackson2JsonMessageConverter =
                 new Jackson2JsonMessageConverter();
         return jackson2JsonMessageConverter;
     }

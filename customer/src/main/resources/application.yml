@@ -17,6 +17,8 @@ spring:
     show-sql: true
   rabbitmq:
     addresses: localhost:5672
+    template:
+      enabled: false
 eureka:
   client:
     service-url:

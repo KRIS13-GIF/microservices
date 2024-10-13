@@ -1,5 +1,5 @@
 The customer is the producer
-In the customerService the customer publishes the notification trhanks to the service and sends it to the queue
+In the customerService the customer publishes the notification thanks to the service and sends it to the queue
 
 The configurtaion and the declaration of the published service is done in the RabbitMqConfig, where the customer
 can use the configurations and can communicate with the queue thanks to the amqTemplate
@@ -11,3 +11,19 @@ It takes the notification from the queue and then it can perform its action
 Customer (producer) -> JSON ->Exchange->Queue->Binding->Notification (consumes the message from the queue)
 
 The queue must be always populated with values in order to execute the send notification
+
+
+
+-- packaging and jar of the microservices--
+! CLIENTS and AMQP are dependencies for the infrastructure. The other items are Microservices
+
+The amqp and the clients are packages into Jars. The process is done using the clean, compile and the package jar.
+For the microservices we have done the modifications in each pom.xml where for each microservice we have removed the
+properties and have put the <build> and <packaging jar>
+
+ATTENTION
+Before compiling the microservices, you need to install the dependencies.
+Make sure you have the plugins in the root.
+Install from the root pom and then compile to others.
+
+If you want to run your jar out, just run "package" in the maven instruction

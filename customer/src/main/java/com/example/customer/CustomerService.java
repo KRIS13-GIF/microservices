@@ -1,23 +1,28 @@
 package com.example.customer;
 
+
 import com.example.amqp.RabbitMQMessageProducer;
 import com.example.clients.fraud.FraudCheckResponse;
 import com.example.clients.fraud.FraudClient;
-import com.example.clients.notifications.NotificationClient;
 import com.example.clients.notifications.NotificationRequest;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+
 @Slf4j
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final FraudClient fraudClient;
-    private final NotificationClient notificationClient;
-    private final RabbitMQMessageProducer rabbitMQMessageProducer;
+    private final RabbitMQMessageProducer rabbitTemplate; // Use RabbitTemplate directly
+
+    public CustomerService(CustomerRepository customerRepository, FraudClient fraudClient, RabbitMQMessageProducer rabbitTemplate) {
+        this.customerRepository = customerRepository;
+        this.fraudClient = fraudClient;
+
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public void registerCustomer(CustomerRequest customerRequest) {
         Customer customer = Customer.builder()
@@ -52,11 +57,11 @@ public class CustomerService {
 
 
             //Using RabbitMQ to put the request inside of the QUEUE-> No more need for notificationClient
-            rabbitMQMessageProducer.publish(  // the same as sending notifications
+            rabbitTemplate.publish(
                     notificationRequest,
                     "internal-exchange",
                     "internal.notification.routing-key"
-            );
+                        );
             log.info("Sent");
 
 
