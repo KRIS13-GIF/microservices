@@ -29,6 +29,8 @@ services:
       - postgres
     restart: unless-stopped
 
+
+
   rabbitmq:
     image: rabbitmq:3.9.11-management-alpine
     container_name: rabbitmq
@@ -39,8 +41,39 @@ services:
       - postgres
     restart: unless-stopped
 
+
+
+#extracting
+  eureka-server:
+    image: kris13beka/eureka-server:0.0.1-SNAPSHOT   #write the name of the docker image in dockerHub
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker #from application-docker
+    networks: #communication with apigw
+      - spring
+
+
+  #extracting
+  apigateway:
+    image: kris13beka/apigateway:0.0.1-SNAPSHOT  #write the name of the docker image in dockerHub
+    container_name: apigateway
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker #from application-docker
+    networks:
+      - spring
+    depends_on:
+      - eureka-server  # Ensure Eureka starts first
+
+
 networks:
   postgres:
+    driver: bridge
+  #we need this one to let our app work without localhost
+  spring:
     driver: bridge
 
 volumes:

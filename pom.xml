@@ -34,6 +34,9 @@
         <spring.cloud-version>2023.0.3</spring.cloud-version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <!--Centralizing the image name to be used by different microservices-->
+        <image>kris13beka/${project.artifactId}:${project.version}</image>
+        <java.version>17</java.version>
     </properties>
 
     <dependencyManagement>
@@ -70,6 +73,8 @@
 
     <build>
         <pluginManagement>
+
+            <!--Only for the microservices for building the docker image-->
             <plugins>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
@@ -78,7 +83,30 @@
                     <executions>
                         <execution>
                             <goals>
-                                <goal>repackage</goal>
+                                <goal>build-image</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>3.1.4</version>
+                    <configuration>
+                        <from>
+                            <image>eclipse-temurin:17@sha256:2b47a8ea946ce1e5365a1562414ed576e378b7b670cadff3fb98ebecf2890cdc</image>
+                        </from>
+                        <to>
+                            <tags>
+                                <tag>latest</tag>
+                            </tags>
+                        </to>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -86,6 +114,8 @@
             </plugins>
         </pluginManagement>
 
+
+        <!--Plugin for the JAR-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

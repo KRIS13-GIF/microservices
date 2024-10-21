@@ -27,3 +27,17 @@ Make sure you have the plugins in the root.
 Install from the root pom and then compile to others.
 
 If you want to run your jar out, just run "package" in the maven instruction
+
+---DOCKER IMAGE section----
+Need to modify the root pom.xml (puttig the jib plugin)
+Do not modify nothing to amqp and clients
+Type the command after you have edited the configuration mvn clean package -P build docker image
+Activate your docker profile where you are running the instances. Follow the instructions online.
+
+**If you want all your microservices to build a docker image, you need to make the configuration using the cmd
+from the root (microservices): mvn clean package -P build docker image
+
+-After creating the 5 docker images in DockerHub and checking  them, we need to make the modification in the docker compose for
+changing the localhost->eureka-server for eureka-server and api-gateway. We make changes also in each application-docker.yml
+by activating a SPRING profile which allows us to manage the changes.
+After you have done the changes, you are required to build new images (all) for the new appliation-docker.yml: mvn clean -P build-docker-image

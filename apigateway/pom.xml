@@ -24,6 +24,24 @@
     </build>
 
 
+    <!--Needed for the docker image conf-->
+    <profiles>
+        <profile>
+            <id>build-docker-image</id>
+            <build>
+                <pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
+
     <dependencies>
 
 
