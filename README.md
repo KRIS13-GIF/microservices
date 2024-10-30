@@ -18,7 +18,7 @@ Acts as the gateway for external users to access services. It manages traffic an
 
 ## Broker
 
-Utilizes **RabbitMQ** and **Kafka** for message brokering to handle asynchronous notifications. This setup helps decouple services, allowing them to interact without direct dependencies and supporting scalability.
+Utilizes **RabbitMQ** for message brokering to handle asynchronous notifications. This setup helps decouple services, allowing them to interact without direct dependencies and supporting scalability.
 
 ## Database
 
