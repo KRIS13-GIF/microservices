@@ -1,28 +1,19 @@
+server:
+  port: 8083
 spring:
-  main:
-    web-application-type: reactive
   application:
     name: api-gateway
+
   cloud:
     gateway:
       routes:
-      - id: customer
-        uri: lb://CUSTOMER
-        predicates:
-          - Path=/api/v1/customers/**
-
-      - id: fraud
-        uri: lb://FRAUD
-        predicates:
-          - Path=/api/v1/fraud/**
-
-server:
-  port: 8083
-
+        - id: customer
+          uri: lb://CUSTOMER
+          predicates:
+            - Path=/api/v1/customers/**
 eureka:
   client:
     service-url:
-      #it is needed for the Spring Profile in order to change the localhost
-      defaultZone: http://eureka-server:8761/eureka
+      defaultZone: http://eureka-server:8761/eureka/
     fetch-registry: true
     register-with-eureka: true

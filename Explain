@@ -41,3 +41,7 @@ from the root (microservices): mvn clean package -P build docker image
 changing the localhost->eureka-server for eureka-server and api-gateway. We make changes also in each application-docker.yml
 by activating a SPRING profile which allows us to manage the changes.
 After you have done the changes, you are required to build new images (all) for the new appliation-docker.yml: mvn clean -P build-docker-image
+docker-compose down
+docker-compose up --build
+
+

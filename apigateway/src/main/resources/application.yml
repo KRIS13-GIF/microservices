@@ -6,15 +6,15 @@ spring:
   cloud:
     gateway:
       routes:
-      - id: customer
-        uri: lb://CUSTOMER
-        predicates:
-          - Path=/api/v1/customers/**
+        - id: customer
+          uri: lb://CUSTOMER
+          predicates:
+            - Path=/api/v1/customers/**
 
-      - id: fraud
-        uri: lb://FRAUD
-        predicates:
-          - Path=/api/v1/fraud/**
+        - id: fraud
+          uri: lb://FRAUD
+          predicates:
+            - Path=/api/v1/fraud/**
 
 server:
   port: 8083

@@ -1,11 +1,11 @@
 server:
-  port: 8086
+  port: 8081
 spring:
   application:
-    name: notifications
+    name: customer
   datasource:
     password: password
-    url: jdbc:postgresql://localhost:5432/notifications
+    url: jdbc:postgresql://postgres:5432/customer
     username: amigoscode
   jpa:
     hibernate:
@@ -15,23 +15,13 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-
   rabbitmq:
-    addresses: localhost:5672
-
+    addresses: rabbitmq:5672 #talk directly to rabbitmq container
+    template:
+      enabled: false
 eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
-
-
-#config used for Rabbit mq
-rabbitmq:
-  exchanges:
-    internal: internal.exchange
-  queues:
-    notification: notification.queue
-  routing-keys:
-    internal-notification: internal.notification.routing-key
