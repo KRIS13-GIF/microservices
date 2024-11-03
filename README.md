@@ -21,9 +21,7 @@ Acts as the gateway for external users to access services. It manages traffic an
 Utilizes **RabbitMQ** for message brokering to handle asynchronous notifications. This setup helps decouple services, allowing them to interact without direct dependencies and supporting scalability.
 
 ## Database
-
-- **MongoDB** for the Fraud Service
-- **PostgreSQL** for the Customer and Notification Services
+- **PostgreSQL** for the Customer, Fraud & Notification Services
 
 ## Private Docker Registry
 
