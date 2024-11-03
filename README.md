@@ -8,13 +8,13 @@ Acts as the gateway for external users to access services. It manages traffic an
 ## Microservices
 
 - **Fraud Service**  
-  Responsible for fraud detection. Communicates with other services asynchronously to send notifications and stores data in a MongoDB instance.
+  Responsible for fraud detection. Communicates with other services asynchronously to send notifications and stores data in a PostgresSQL instance.
 
 - **Customer Service**  
   Manages customer-related operations, with data stored in PostgreSQL. It also interacts with other services asynchronously for notifications.
 
 - **Notification Service**  
-  Sends notifications using external providers like Twilio and Firebase. It uses RabbitMQ and Kafka for asynchronous message handling and stores data in a PostgreSQL instance.
+ It uses RabbitMQ for asynchronous message handling and stores data in a PostgreSQL instance.
 
 ## Broker
 
